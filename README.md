@@ -91,17 +91,6 @@ supabase/seed.sql
 npm run dev
 ```
 
-## Viva Talking Points
-
-- `AuthContext` centralizes session persistence, profile loading, login, signup, and logout.
-- Pages use custom hooks such as `useProjects`, `useSavedProjects`, `useTasks`, `useNotes`, and `useDashboardStats`.
-- Supabase calls are isolated in `src/services`, keeping UI components easier to test and explain.
-- `useMemo` powers filtered lists and analytics transformations.
-- `useCallback` stabilizes handlers in contexts and hooks.
-- `useRef` improves UX by focusing the search bar and modal close action.
-- `React.lazy` and `Suspense` code split route-level pages.
-- RLS policies protect user-owned saved projects, tasks, notes, and activity logs.
-
 ## Future Improvements
 
 - GitHub API import for repository metadata
