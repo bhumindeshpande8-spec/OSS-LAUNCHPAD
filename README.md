@@ -1,3 +1,21 @@
+**Project Name:** OSS Launchpad
+
+**Student Name:** Bhumi N Deshpande (25bcs10477)
+
+**Problem Statement:** Students who want to contribute to open source lose momentum because repositories, setup steps, issues and notes are scattered across many places, with no single view of progress or next steps.
+
+**GitHub Repository:** [github.com/bhumindeshpande8-spec/OSS-LAUNCHPAD](https://github.com/bhumindeshpande8-spec/OSS-LAUNCHPAD)
+
+**Deployed Application / Build:** [oss-launchpad.vercel.app](https://oss-launchpad.vercel.app)
+
+**Demo Video:** https://drive.google.com/file/d/1vlDCs3ySKL_cN656Ul8VaWwUSFLgn9uH/view?usp=sharing
+
+**Tech Stack:** React 18, Vite, React Router v6, Tailwind CSS, Supabase (Auth + PostgreSQL), GitHub REST API, Recharts
+
+**Major Features:** Supabase auth with protected routes, curated project discovery with search and filters, GitHub "good first issue" import as tasks, six-stage contribution pipeline, task and notes tracking, dashboard with progress analytics and activity feed
+
+---
+
 # OSS Launchpad
 
 A contribution workspace that guides students from "I want to contribute to open source" to a merged pull request.
