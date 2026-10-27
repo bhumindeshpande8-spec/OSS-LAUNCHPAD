@@ -2,7 +2,7 @@
 
 A contribution workspace that guides students from "I want to contribute to open source" to a merged pull request.
 
-**Live app:** _https://your-deployment-url.vercel.app_ <!-- TODO: replace with the deployed URL -->
+**Live app:** [oss-launchpad.vercel.app](https://oss-launchpad.vercel.app)
 
 ## Problem Statement
 
@@ -177,7 +177,7 @@ VITE_SUPABASE_ANON_KEY=your-supabase-anon-key
 
 ## Deployment
 
-**Live application:** _https://your-deployment-url.vercel.app_ <!-- TODO: replace with the deployed URL -->
+**Live application:** [oss-launchpad.vercel.app](https://oss-launchpad.vercel.app)
 
 The app is a static SPA deployed on **Vercel**, with Supabase as the hosted backend.
 
