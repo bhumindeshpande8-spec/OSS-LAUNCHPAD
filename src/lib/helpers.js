@@ -5,6 +5,11 @@ export function cn(...classes) {
   return clsx(classes);
 }
 
+// Postgres error code for a unique constraint violation (e.g. a duplicate save or import).
+export function isUniqueViolation(error) {
+  return error?.code === "23505";
+}
+
 export function stagePercent(stage) {
   const index = PROGRESS_STAGES.indexOf(stage);
   if (index < 0) return 0;

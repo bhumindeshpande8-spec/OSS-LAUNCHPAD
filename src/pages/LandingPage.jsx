@@ -132,7 +132,7 @@ export default function LandingPage() {
               <p className="mt-3 max-w-2xl text-slate-300">Build a habit, not a scattered pile of browser tabs.</p>
             </div>
             <Link to="/signup">
-              <Button size="lg" className="bg-white text-ink hover:bg-slate-100">
+              <Button size="lg" variant="inverse">
                 Create account <CheckCircle2 className="h-4 w-4" />
               </Button>
             </Link>

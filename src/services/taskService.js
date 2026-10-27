@@ -1,5 +1,8 @@
 import { requireSupabase } from "../lib/supabaseClient";
+import { isUniqueViolation } from "../lib/helpers";
 import { logActivity } from "./activityService";
+
+const duplicateIssueMessage = "You already have a task for this issue URL.";
 
 const taskSelect = "*, project:projects(id, name, slug, difficulty, category)";
 
@@ -30,6 +33,7 @@ export async function createTask({ userId, values, projectName }) {
     .insert({ ...values, user_id: userId })
     .select(taskSelect)
     .single();
+  if (isUniqueViolation(error)) throw new Error(duplicateIssueMessage);
   if (error) throw error;
   await logActivity({
     userId,
@@ -49,6 +53,7 @@ export async function updateTask({ userId, taskId, values }) {
     .eq("user_id", userId)
     .select(taskSelect)
     .single();
+  if (isUniqueViolation(error)) throw new Error(duplicateIssueMessage);
   if (error) throw error;
   if (values.status === "Done") {
     await logActivity({

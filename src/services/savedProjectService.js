@@ -1,4 +1,5 @@
 import { requireSupabase } from "../lib/supabaseClient";
+import { isUniqueViolation } from "../lib/helpers";
 import { logActivity } from "./activityService";
 
 const savedSelect = "*, project:projects(*)";
@@ -30,6 +31,7 @@ export async function saveProject({ userId, project }) {
     .insert({ user_id: userId, project_id: project.id })
     .select(savedSelect)
     .single();
+  if (isUniqueViolation(error)) throw new Error(`${project.name} is already in your workspace.`);
   if (error) throw error;
   await logActivity({
     userId,

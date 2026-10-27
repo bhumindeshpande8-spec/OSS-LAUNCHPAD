@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { ExternalLink } from "lucide-react";
 import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
@@ -8,19 +9,41 @@ import { LoadingSpinner } from "../components/ui/LoadingSpinner";
 import { ProjectMeta } from "../components/projects/ProjectMeta";
 import { ProgressStageSelector } from "../components/projects/ProgressStageSelector";
 import { SaveProjectButton } from "../components/projects/SaveProjectButton";
+import { GoodFirstIssuesPanel } from "../components/projects/GoodFirstIssuesPanel";
 import { TaskCard } from "../components/tasks/TaskCard";
 import { NoteCard } from "../components/notes/NoteCard";
 import { useProject } from "../hooks/useProjects";
 import { useSavedProject } from "../hooks/useSavedProjects";
 import { useTasks } from "../hooks/useTasks";
 import { useNotes } from "../hooks/useNotes";
+import { useAuth } from "../hooks/useAuth";
+import { useGoodFirstIssues } from "../hooks/useGoodFirstIssues";
+import { importIssueAsTask } from "../services/issueImportService";
 
 export default function ProjectDetailsPage() {
   const { slug } = useParams();
+  const { user } = useAuth();
   const { project, loading, error } = useProject(slug);
   const saved = useSavedProject(project?.id);
   const tasks = useTasks(project?.id);
   const notes = useNotes(project?.id);
+  const goodFirstIssues = useGoodFirstIssues(project?.github_url);
+
+  const importedUrls = useMemo(() => new Set(tasks.tasks.map((task) => task.issue_url).filter(Boolean)), [tasks.tasks]);
+
+  async function handleImport(issue) {
+    try {
+      const { stageAdvanced } = await importIssueAsTask({ userId: user.id, project, issue });
+      toast.success(
+        stageAdvanced ? `Imported #${issue.number} and moved ${project.name} to Issue Selected.` : `Imported #${issue.number} into your tasks.`
+      );
+    } catch (err) {
+      toast.error(err.message);
+    } finally {
+      // Re-sync even on failure: the project may have been saved before the task step failed.
+      await Promise.all([saved.refetch(), tasks.refetch()]);
+    }
+  }
 
   async function handleStage(stage) {
     try {
@@ -71,6 +94,8 @@ export default function ProjectDetailsPage() {
       ) : (
         <EmptyState title="Save this project to manage it" description="After saving, your project tasks and notes will appear here." />
       )}
+
+      <GoodFirstIssuesPanel issuesState={goodFirstIssues} importedUrls={importedUrls} onImport={handleImport} />
 
       {saved.savedProject ? (
         <section className="grid gap-6 xl:grid-cols-2">

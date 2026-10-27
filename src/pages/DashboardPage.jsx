@@ -29,7 +29,7 @@ export default function DashboardPage() {
             </p>
           </div>
           <Link to="/discover">
-            <Button className="bg-white text-ink hover:bg-slate-100">Discover repos</Button>
+            <Button variant="inverse">Discover repos</Button>
           </Link>
         </div>
       </section>

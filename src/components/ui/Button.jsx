@@ -7,7 +7,9 @@ const variants = {
   secondary: "border border-slate-200 bg-white text-ink hover:bg-slate-50",
   subtle: "bg-slate-100 text-slate-700 hover:bg-slate-200",
   danger: "bg-rose-600 text-white hover:bg-rose-700",
-  ghost: "text-slate-700 hover:bg-slate-100"
+  ghost: "text-slate-700 hover:bg-slate-100",
+  // For use on dark surfaces like the dashboard hero and landing CTA.
+  inverse: "bg-white text-ink hover:bg-slate-100"
 };
 
 const sizes = {

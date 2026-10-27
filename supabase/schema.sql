@@ -52,6 +52,10 @@ create table if not exists public.tasks (
   updated_at timestamptz default now()
 );
 
+create unique index if not exists tasks_user_issue_url_key
+  on public.tasks (user_id, issue_url)
+  where issue_url is not null and issue_url <> '';
+
 create table if not exists public.notes (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null references public.profiles(id) on delete cascade,
